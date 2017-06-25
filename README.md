@@ -65,7 +65,9 @@ The solution uses Google Cloud Platform (GCP) for distributing the workload and 
 In order to keep the companies data private I stood up my own pipelines from scratch to test out the various features required and to build the sample demo site linked in this repo.
 
 ## The Workflow
+
 ####Google Pubsub
+
 As mentioned earlier as soon as the player starts playing the game the interactions are logged and send to Google Pubsub topic. These messages are pushed to a specific app (not in code) on Google App Engine which processes the messages and saves the results to Google Big Query in two different tables. 
 ####Google Bigquery
 The first table is the raw dump of the entire incoming message where it is stored in different columns as per the requirements. 
