@@ -12,6 +12,7 @@ def toBigQuery(bigquery, project_id, dataset_id, table_name, row,
             'insertId': str(uuid.uuid4()),
         }]
     }
+    # saved to both the tables processed and raw
     return bigquery.tabledata().insertAll(
         projectId=project_id,
         datasetId=dataset_id,
@@ -20,7 +21,7 @@ def toBigQuery(bigquery, project_id, dataset_id, table_name, row,
 
 def post():
     # get data from the message and process it as per the column names for both raw and the processed table
-    # sample data
+    # sample data - the incoming messages are in query string format
     bigquery = json.dumps(challenge_lvl=5&player_id=12345&interaction_time="2017-05-02 02:25:01")
     project_id = config.PROJECT_ID
     project_id = config.PROJECT_ID
