@@ -3,14 +3,17 @@ import scripts
 from flask import Flask, render_template, request
 
 app = Flask(__name__)
-# Flase for production code
+# False for production code
 app.debug = True
 
+# handles each link called from the website
+# default index page
 @app.route("/")
 def index():
     staticJSON = scripts.dash.index()
     return render_template('layouts/index.html', staticJSON=staticJSON)
 
+# fir the custom queries from the page
 @app.route('/_custom/') 
 def custom():
     query = request.args.get('query', "Null", type=str)
