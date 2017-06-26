@@ -41,29 +41,33 @@ def funnel(df, columnName):
         isOngoing(each_df)
     return "results"
 
+# called by funnel for each player_id
 def isStuck(df):
     uniqueDates = df["time"].unique()[:config.isStuckDays]
     df.loc[df['time'].isin(uniqueDates)]
     if True not in df["passed"]:
         return "Player Stuck"
     
+# called by funnel for each player_id
 def isStopped(df):
     if config.currentDate - config.isStoppedDate > timedelta(days=config.isStoppedDays):
         return "Stopped Playing"
     
+# called by funnel for each player_id
 def isOngoing(df):
     uniqueDates = df["time"].unique()[:config.isOngoingDays]
     df.loc[df['time'].isin(uniqueDates)]
     if len(df["time"].unique()) > config.ongoingActivity:
         return "Still Playing"
 
+# called by the html for custom queries with the query and x, y axis
 def custom(query, X, Y):
     # building the query
     if(query == "Null"):
         graphs = dict(
                 custom=[
                     dict(
-                        # wrapper plot
+                        # wrapper plot/ default query on null
                         x=np.random.normal(20, 0.25, 50),
                         y=np.random.normal(20, 0.25, 50),
                         type='histogram'
@@ -103,6 +107,7 @@ def custom(query, X, Y):
     customJSON = json.dumps(graphs, cls=plotly.utils.PlotlyJSONEncoder)
     return customJSON 
 
+# main index page plots the first and the second graph - player and the challenge baed on predefined queries
 def index():
     # getting results from stuck method
     stuckY = plotStuck()
