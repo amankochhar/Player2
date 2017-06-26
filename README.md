@@ -43,16 +43,21 @@ e.g., `Database`:
 ## The Deliverables
 The deliverables for the project are the three pillars for any data driven startup in the Valley.
 
-####Pipeline
+#### Pipeline
+
 Build the data pipeline architecture for the company which can scale and work effectively with the high data throughput Player 2 plans in the future.
-####Predictive Analysis
+
+#### Predictive Analysis
+
 Build a predicitve analytics model which can calculate the players progress across the platform and classify players about to churn.
-####Real-time Dashboard
+
+#### Real-time Dashboard
+
 Provide a visual analytics tool that the company can internally use to jump start there analytics and insight on their players interaction with the product. 
 
 ## The Solution
 The solution uses Google Cloud Platform (GCP) for distributing the workload and the computation to multi node clusters. 
-###The technologies used are:
+### The technologies used are:
 * Google PubSub
 * Google App Engine
 * Google Big Query
@@ -66,15 +71,17 @@ In order to keep the companies data private I stood up my own pipelines from scr
 
 ## The Workflow
 
-####Google Pubsub
+#### Google Pubsub
 
-As mentioned earlier as soon as the player starts playing the game the interactions are logged and send to Google Pubsub topic. These messages are pushed to a specific app (not in code) on Google App Engine which processes the messages and saves the results to Google Big Query in two different tables. 
-####Google Bigquery
+As mentioned earlier as soon as the player starts playing the game the interactions are logged and send to Google Pubsub topic. These messages are pushed to a specific app (not in code) on Google App Engine which processes the messages and saves the results to Google Big Query in two different tables.
+
+#### Google Bigquery
+
 The first table is the raw dump of the entire incoming message where it is stored in different columns as per the requirements. 
 
 The second table is specifically designed for the analytics dashboard and only stores the data relevant for the dashboard and of significance to the predictive analytics model. The reason for thsi data architecture is that the incoming data is very wide and contains a lot of data not required for dashboard. Storing data in such a fashion leads to less disk seeks and thus faster queries. 
 
-####Dashboard
+#### Dashboard
 
 The dashboard as displayed in the demo is deployed as another module of the app in the App Engine and periodically creates business insights and visualizes important metrics on the dashboard. 
 
